@@ -1,0 +1,8 @@
+This is just an example of  the  CRUD operation and a simple post and comment function in fuel php.
+
+1)Create the database name "fuel_demo".
+2)Run the sql file
+3)clone the project on the localhost/xampp/htdocs(for xampp users)
+https://github.com/sajans/fuelphp_example.git
+4)type url in the browser sa ...Application path/public
+
