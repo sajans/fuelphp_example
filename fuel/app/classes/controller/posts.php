@@ -23,17 +23,10 @@ class Controller_Posts extends Controller_Template {
         $view->set('posts', $posts);
         $this->template->title = "Posts";
         $this->template->content = $view;
-       // $this->template->content = View::forge('posts/index', $data);
     }
 
     public function action_view($id = null) {
         is_null($id) and Response::redirect('posts');
-
-       // if (!$data['post'] = Model_Post::find($id)) 
-//       {
-//            Session::set_flash('error', 'Could not find post #' . $id);
-//            Response::redirect('posts');
-//        }
         if (!$message = Model_Post::find($id)) {
             Session::set_flash('error', 'Could not find message #' . $id);
             Response::redirect('messages');
@@ -50,13 +43,18 @@ class Controller_Posts extends Controller_Template {
     }
 
     public function action_create() {
+        $user = array();
+        $user = Auth::get_user_id();
+        $id = $user['1'];
         if (Input::method() == 'POST') {
             $val = Model_Post::validate('create');
+            $_POST['user_id'] = $id;
 
             if ($val->run()) {
                 $post = Model_Post::forge(array(
                             'title' => Input::post('title'),
                             'message' => Input::post('message'),
+                            'user_id' => Input::post('user_id'),
                         ));
 
                 if ($post and $post->save()) {
@@ -70,7 +68,7 @@ class Controller_Posts extends Controller_Template {
                 Session::set_flash('error', $val->error());
             }
         }
-
+        // $view->user_id = $id;
         $this->template->title = "Posts";
         $this->template->content = View::forge('posts/create');
     }
@@ -113,10 +111,8 @@ class Controller_Posts extends Controller_Template {
 
     public function action_delete($id = null) {
         is_null($id) and Response::redirect('posts');
-
         if ($post = Model_Post::find($id)) {
             $post->delete();
-
             Session::set_flash('success', 'Deleted post #' . $id);
         } else {
             Session::set_flash('error', 'Could not delete post #' . $id);

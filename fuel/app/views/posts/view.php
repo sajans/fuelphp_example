@@ -17,7 +17,7 @@ echo Html::anchor('../public', 'Back');
         <li><strong>Comment:</strong><br /><?php echo $comment->message; ?></li>
         <li><?php if (Auth::instance()->check()) : ?>
     <li><p><?php //echo Html::anchor('comments/edit/'.$comment->id.'/'.$message->id, 'Edit'); ?>|
-    <?php echo Html::anchor('comments/delete/'.$comment->id.'/'.$message->id, 'Delete', array('onclick'=> "return confirm('Are you sure?')")); ?></li>
+    <?php //echo Html::anchor('comments/delete/'.$comment->id.'/'.$message->id, 'Delete', array('onclick'=> "return confirm('Are you sure?')")); ?></li>
 <?php endif; ?></li>
     </ul>
     </li>
